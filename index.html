@@ -1,0 +1,451 @@
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js"></script>
+    <title>Tick Tracking</title>
+    <style>
+        body {
+            background-color: #030f1a;
+        }
+
+
+        #container {
+            display:flex; 
+            flex-direction: column;
+            width: 100%;
+
+
+
+
+        }
+
+        .mainLine {
+            width: 100%;
+            height: 3px;
+            background-color: dodgerblue;
+        }
+
+        .upContent {
+            display: flex;
+            flex-direction: row;
+            align-items: end;
+        }
+
+
+        .Spacer {
+            /* background-color: rgb(0, 81, 255);  */
+            display: inline;
+            white-space: nowrap;
+             visibility: hidden; /**/
+
+        }
+
+        .upGroup {
+            /* background-color: rgba(1, 146, 32, 0.623); */
+            width: 78px;
+            /* display: flex; */
+
+        }
+
+        .upVcontainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            /* background-color: rgb(200, 255, 47); */
+        }
+
+        .upTickChange {
+            font-size: 24px;
+            /* color: rgb(4, 95, 4); light
+            color: #0bc0b4;*/
+            color:#00e7ff;
+            /* dark*/
+            text-align: center;
+            font-weight: lighter;
+        }
+        /* .ucircle{
+            width: 10px;
+            height: 10px;
+            background-color: dodgerblue;
+            border-radius: 50%;
+        } */
+
+        .upVLine {
+            width: 3px;
+            transform: translate(-8px, 0px);
+            height: 70px;
+         /*   background-color: #00beff;*/
+            background-color: #0b70fb;
+            position: relative;
+        }
+
+        .upHcontainer {
+            width: auto;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+          
+            /* background-color: rgba(24, 207, 207, 0.959); */
+        }
+
+        .upHLine {
+
+            width: 60px;
+            height: 3px;
+            background-color: #00bf00;
+            /*dark*/
+        }
+
+        .upDigit {
+            font-size: 28px;
+            margin: 2px;
+            /* background-color: rgb(159, 247, 196, 0.47); light*/
+            background-color: rgb(159, 247, 196, 0);
+            color:#98ff92;
+
+        }
+
+        .downContent {
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+        }
+
+        .downGroup {
+
+            /* background-color: rgba(255, 0, 0, 0.527); */
+            width: 78px;
+        transform: translate(0px,-35.6px);
+        }
+
+        .downHcontainer {
+
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            /* transform: translate(0px, -36px); */
+            /* background-color: rgba(24, 207, 207, 0.959); */
+        }
+
+        .downVcontainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+
+            /* background-color: rgb(200, 255, 47); */
+        }
+
+
+        .downVLine {
+            width: 3px;
+            height: 40px;
+            /* background-color: red; light*/
+            background-color: #ed4731;
+            transform: translate(-7px, 0px);
+            /* dark*/
+        }
+
+        .downHLine {
+            width: 60px;
+            height: 3px;
+            /* background-color: red; light*/
+            background-color: #ff0000;
+            /* dark*/
+        }
+
+
+
+        .downTickChange {
+            font-size: 24px;
+            justify-content: center;
+            display: flex;
+            /* color: red; light*/
+            color:#ff805a;
+            /* dark*/
+            font-weight: bold;
+        }
+
+        .downDigit {
+            margin: 2px;
+            font-size: 28px;
+            /* background-color: rgb(255, 213, 207, 0.49); light */
+            background-color: rgb(255, 213, 207, 0);
+            /*dark*/
+            /* color: #b17b7b;  light*/
+            color:#fdddec;
+            /* dark*/
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="upContent" id="upContainer">
+            <!--<div class="upGroup">
+                <div class="upVcontainer"> 
+                        <div class="upTickChange" id="upTKC">+0443</div>
+                    <div class="upVLine" id="upVL"></div>
+                </div>
+                <div class="upHcontainer">
+                    <div class="upHLine"></div>
+                  
+                    <div class="upDigit" id="upDgit">1</div>
+                </div>
+            </div>
+                         -->
+
+
+        </div>
+
+        <div class="downContent" id="downContainer">
+          <!--  <div class="Spacer">
+                <div class="Spacer"> ,-____;1**.. </div>
+            </div>   
+            <div class="downGroup">
+                <div class="downHcontainer">
+                    <div class="downHLine" ></div>
+                    <div class="downDigit" id="dDgit">5</div>
+                </div>
+                <div class="downVcontainer">
+                    <div class="downVLine" id="dVL" style="height: 120px;"></div>
+                    <span class="downTickChange" id="dTKC">-0035</span>
+                </div>
+            </div>   -->
+        </div>
+
+
+        <!-- <div class="mainLine"></div> -->
+
+        <!-- <div class="Spacer"> ,-____;1**.. </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+    <script>
+        //TODO: promediar la longitud de los tick changes a 1000 de los 1000
+        ///TODO:tareas y features:
+        /**
+        *!  scroll horizontal wheel
+        ** pan zoom wheel
+        *? auto scroll to right
+        */
+
+        // var elements = document.querySelector('#scene');
+        //var element = document.getElementById("container");
+
+        var out = document.body;
+        //==============================================================
+
+
+
+        var symbol = "R_50";
+        var decimals = 4;
+
+        //========================================== Ontick
+
+
+        var ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
+
+        ws.onopen = function (evt) {
+            ws.send(JSON.stringify({ ticks: symbol }));
+        };
+
+        var mticks = [0, 0];
+        var first = 0;
+        var contadorNeg = 0;
+        var contadorPos = 0;
+        var allCounter = 0;
+        var spc = 0;
+
+
+        ws.onmessage = function (msg) {
+            allCounter++
+            var data = JSON.parse(msg.data);
+            var isScrolledToBottom = out.scrollWidth - out.clientWidth <= out.scrollLeft + 1;
+            mticks[1] = data.tick.quote;
+            mticks[0] = first;
+            first = data.tick.quote;
+
+            var digit = Number(data.tick.quote).toFixed(decimals).slice(-1);
+          
+          console.log(digit);
+            //////////////////////////////////////////////changes
+
+            if (mticks[0] && mticks[1] != 0) {
+                var change = (Number(mticks[1] - mticks[0])).toFixed(decimals); // cuando el change es igual a cero es un caso especial, pos,neg,cero
+                //var nchange = (change + "").split(",");
+                //var nchange = change.toString().split(".");
+                var nchange = (change + "").split(".")[1];
+                //console.log("nuevo cambio: "+nchange);
+                var verticalLine = (Math.abs(change) * 1000).toFixed(2);  //aqui puedes sumar +10 o +20 para que la longitud no sea muy pequeña
+                var Linev = Number(verticalLine) + 10;
+
+                //  console.log("changes: " + change);
+                //console.log("Vertical Line: " + finaly + " px");
+                // document.getElementById("dVLine").style.height = linev + "px";
+                if (change > 0) {
+                    contadorPos++
+                    contadorNeg = -1;
+                    // console.log("cambio positivo");
+                    // change = tick change
+                    // lineV =
+                    addPos(allCounter, nchange, Linev, contadorPos,digit);
+                  
+                } else if (change <= 0) {
+                    contadorNeg++
+                    contadorPos = 0; 
+                    addNeg(allCounter, nchange, Linev, contadorNeg,digit);
+                   
+                  
+                }
+
+            } else {
+                console.log("esperando");
+            }
+
+            //////////////////////////////////////////////changes
+            function addPos(counter, change, upLineV, PosCounter,digit) {
+
+
+                var upgroup = document.createElement("div");
+                upgroup.setAttribute("class", "upGroup");
+                var upvcontainer = document.createElement("div");
+                upvcontainer.setAttribute("class", "upVcontainer");
+                var upvline = document.createElement("div");
+                upvline.setAttribute("class", "upVLine");
+                upvline.setAttribute("id", "upVL" + counter);
+                upvline.style.height = upLineV + "px";
+
+                var uptickchange = document.createElement("div");
+                uptickchange.setAttribute("class", "upTickChange");
+                uptickchange.setAttribute("id", "upTKC" + counter);
+                var uChangetxt = document.createTextNode("+" + change);
+                uptickchange.appendChild(uChangetxt);
+
+                var uphcontainer = document.createElement("div");
+                uphcontainer.setAttribute("class", "upHcontainer");
+                var upDigit = document.createElement("div");
+
+                upDigit.setAttribute("class", "upDigit");
+                upDigit.setAttribute("id", "upDgit" + counter);
+                var updigitxt = document.createTextNode(digit);
+                // var updigitxt = document.createTextNode(PosCounter);
+                upDigit.appendChild(updigitxt);
+
+                var uphline = document.createElement("div");
+                uphline.setAttribute("class", "upHLine");
+                //uphline.setAttribute("id","upHL"+PosCounter);
+
+                var utarget = document.getElementById("upContainer");
+                var dtarget = document.getElementById("downContainer");
+                var spacer = document.createElement("div");
+                spacer.setAttribute("class", "Spacer");
+                var spacerText = document.createTextNode(",-____;1**..");
+                spacer.appendChild(spacerText);
+                dtarget.appendChild(spacer);
+
+                upvcontainer.appendChild(uptickchange);
+                upvcontainer.appendChild(upvline);
+
+                uphcontainer.appendChild(uphline);
+                uphcontainer.appendChild(upDigit);
+
+                upgroup.appendChild(upvcontainer);
+                upgroup.appendChild(uphcontainer);
+
+                utarget.appendChild(upgroup);
+
+
+
+
+            }
+            function addNeg(counter, nchange, LineV, NegCounter,digit) {
+
+                var dgroup = document.createElement("div");
+                dgroup.setAttribute("class", "downGroup");
+                var dvcontainer = document.createElement("div");
+                dvcontainer.setAttribute("class", "downVcontainer");
+                var dvline = document.createElement("div");
+                dvline.setAttribute("class", "downVLine");
+                dvline.setAttribute("id", "dVL" + counter);
+                dvline.style.height = LineV + "px";
+
+                var dtickchange = document.createElement("div");
+                dtickchange.setAttribute("class", "downTickChange");
+                dtickchange.setAttribute("id", "dTKC" + counter);
+                var dChangetxt = document.createTextNode("-" + nchange);
+                dtickchange.appendChild(dChangetxt);
+
+                var dhcontainer = document.createElement("div");
+                dhcontainer.setAttribute("class", "downHcontainer");
+                var dDigit = document.createElement("div");
+                dDigit.setAttribute("class", "downDigit");
+                dDigit.setAttribute("id", "dDgit" + counter);
+                // var Digitxt = document.createTextNode(NegCounter);
+                var Digitxt = document.createTextNode(digit);
+                dDigit.appendChild(Digitxt);
+
+                var dhline = document.createElement("div");
+                dhline.setAttribute("class", "downHLine");
+                // dhline.setAttribute("id","dHL"+NegCounter);
+
+                var dtarget = document.getElementById("downContainer");
+                var utarget = document.getElementById("upContainer");
+
+                var spacer = document.createElement("div");
+                spacer.setAttribute("class", "Spacer");
+                var spacerText = document.createTextNode(",-____;1**..");
+                spacer.appendChild(spacerText);
+                utarget.appendChild(spacer);
+
+
+
+                dhcontainer.appendChild(dhline);
+                dhcontainer.appendChild(dDigit);
+
+                dvcontainer.appendChild(dvline);
+                dvcontainer.appendChild(dtickchange);
+
+                dgroup.appendChild(dhcontainer);
+                dgroup.appendChild(dvcontainer);
+
+                dtarget.appendChild(dgroup);
+
+
+
+
+            }
+         
+
+       
+
+
+            console.log(mticks);
+            if (isScrolledToBottom) {
+                out.scrollLeft = out.scrollWidth - out.clientWidth;
+                //  console.log("scroll desplazado al final");
+            } else {
+                //out.scrollLeft = out.scrollWidth - out.clientWidth;
+                //console.log("Se movio el scroll del borde");
+            }
+
+        }
+    </script>
+
