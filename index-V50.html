@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js"></script>
-    <title>Tick Tracking</title>
+    <title>Tick Tracking V50</title>
     <style>
         body {
             background-color: #030f1a;
@@ -323,8 +323,8 @@
 
 
 
-    var symbol = "R_100";
-    var decimals = 2;
+    var symbol = "R_50";
+    var decimals = 4;
 
     //========================================== Ontick
 
@@ -362,7 +362,7 @@
             //var nchange = change.toString().split(".");
             var nchange = (change + "").split(".")[1];
             //console.log("nuevo cambio: "+nchange);
-            var verticalLine = (Math.abs(change) * 30).toFixed(2);  //aqui puedes sumar +10 o +20 para que la longitud no sea muy pequeña
+            var verticalLine = (Math.abs(change) * 1000).toFixed(2);  //aqui puedes sumar +10 o +20 para que la longitud no sea muy pequeña
             var Linev = Number(verticalLine)+10 ;
 
             //  console.log("changes: " + change);
